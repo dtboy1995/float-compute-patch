@@ -1,0 +1,29 @@
+{
+  "name": "float-compute-patch",
+  "version": "1.0.0",
+  "description": "patch v8 float compute lose precision",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "node test/float.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dtboy1995/float-compute-patch.git"
+  },
+  "keywords": [
+    "float",
+    "compute",
+    "bugfix",
+    "lose",
+    "precision"
+  ],
+  "author": "dtboy",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dtboy1995/float-compute-patch/issues"
+  },
+  "homepage": "https://github.com/dtboy1995/float-compute-patch#readme"
+}
