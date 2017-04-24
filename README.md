@@ -24,6 +24,25 @@ require('float-compute-patch');
 var patch = require('float-compute-patch');
 
 // some routes ...
-
 app.listen(3000);
+
+// in service code
+// for expample account.js
+var a = 2.2;
+var b = 2.1;
+// normal
+var c = a + b;
+// after patch addition
+var c = a.add(b);
+// after patch subtraction
+var c = a.sub(b);
+// after patch multiplication
+var c = a.mul(b);
+// after patch division
+var c = a.div(b);
+
+// or for petty format (-.-)
+var c = (a).add(b);
+// chain writing
+var c = (a).add(b).sub(b).mul(a).div(b);
 ```

@@ -24,6 +24,25 @@ require('float-compute-patch');
 var patch = require('float-compute-patch');
 
 // 一些路由 ...
-
 app.listen(3000);
+
+// 在业务文件中
+// 例如 account.js
+var a = 2.2;
+var b = 2.1;
+// 正常写法
+var c = a + b;
+// 补丁后 加法
+var c = a.add(b);
+// 减法
+var c = a.sub(b);
+// 乘法
+var c = a.mul(b);
+// 除法
+var c = a.div(b);
+
+// 为了好看这样写 (-.-)
+var c = (a).add(b);
+// 可以链着写
+var c = (a).add(b).sub(b).mul(a).div(b);
 ```
