@@ -8,7 +8,7 @@ patch v8 float compute lose precision
 - your system has floating-point operations
 - involve some amount calculation
 
-# intall
+# install
 > npm install --save float-compute-patch
 
 # usage
@@ -20,7 +20,7 @@ var app = express();
 
 // just patch here
 require('float-compute-patch');
-// or for petty format (-.-)
+// or for neat format (-.-)
 var patch = require('float-compute-patch');
 
 // some routes ...
@@ -46,3 +46,6 @@ var c = (a).add(b);
 // chain writing
 var c = (a).add(b).sub(b).mul(a).div(b);
 ```
+
+# test
+> npm run test

@@ -46,3 +46,6 @@ var c = (a).add(b);
 // 可以链着写
 var c = (a).add(b).sub(b).mul(a).div(b);
 ```
+
+# 测试
+> npm run test
