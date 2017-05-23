@@ -1,6 +1,6 @@
 {
   "name": "float-compute-patch",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "patch v8 float compute lose precision",
   "main": "index.js",
   "directories": {
