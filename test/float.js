@@ -63,4 +63,4 @@ test_sub();
 test_mul();
 test_div();
 
-console.log('test passed!');
+console.log('module test passed!');

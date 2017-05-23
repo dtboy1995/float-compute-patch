@@ -1,6 +1,6 @@
 ![float-compute-patch](static/logo.png)
 
-# float-compute-patch 
+# float-compute-patch
 patch v8 float compute lose precision
 
 ## Translations
