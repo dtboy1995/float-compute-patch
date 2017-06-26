@@ -15,39 +15,43 @@ patch v8 float compute lose precision
 
 # usage
 ```javascript
-// in your entry program.
-// for example app.js
-var express = require('express');
-var app = express();
-
-// just patch here
+// without patch 2.2+2.1 in v8 = 4.300000000000001. and so on,there are many problems
+/*
+***
+  version 1.x
+***
+*/
+// just execute once at your entry program for expample app.js
 require('float-compute-patch');
-// or for neat format (-.-)
-var patch = require('float-compute-patch');
-
-// some routes ...
-app.listen(3000);
-
-// in service code
-// for expample account.js
-var a = 2.2;
-var b = 2.1;
-// normal
-var c = a + b;
-// after patch addition
-var c = a.add(b);
-// after patch subtraction
-var c = a.sub(b);
-// after patch multiplication
-var c = a.mul(b);
-// after patch division
-var c = a.div(b);
-
-// or for petty format (-.-)
-var c = (a).add(b);
-// chain writing
-var c = (a).add(b).sub(b).mul(a).div(b);
+// write like below
+var result = 2.2.add(2.1); // = 4.3 or write like this (2.2).add(2.1)
+// support chain write
+var result = 2.2.add(2.1).sub(0.5).div(1).mul(2);
+/*
+***
+  version 2.0.0
+***
+*/
+// if you just want to add it to the Number prototype
+require('float-compute-patch').patch(); // like the v1 version
+// if you just want to use an ordinary function
+var cal = require('float-compute-patch').cal;
+// write like below
+var result = cal(2.2).add(2.1).sub(8);
 ```
+
+# api
+- mode of patch Number prototype, you should start with a number
+  - add(number), addition
+  - sub(number), subtraction
+  - mul(number), multiplication
+  - div(number), division
+
+- mode of ordinary function, you should start with cal(number)
+  - add(number), addition
+  - sub(number), subtraction
+  - mul(number), multiplication
+  - div(number), division
 
 # test
 > npm run test

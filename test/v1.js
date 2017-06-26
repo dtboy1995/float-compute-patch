@@ -1,5 +1,5 @@
 var assert = require('assert');
-var patch = require('../src/calculator').patch;
+var patch = require('../index').patch;
 
 patch();
 

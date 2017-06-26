@@ -15,39 +15,43 @@ v8虚拟机浮点数失精度补丁
 
 # 使用
 ```javascript
-// 在你的入口程序
-// 例如 app.js
-var express = require('express');
-var app = express();
-
-// 写到你业务代码的前头
+// 没有处理运算前 2.2+2.1 在v8中的执行结果是 4.300000000000001. 诸如此类还有很多其他的问题
+/*
+***
+  版本 1.x
+***
+*/
+// 在你的入口程序执行一遍即可，比如app.js在你的业务代码之前require即可
 require('float-compute-patch');
-// 为了好看这样写 (-.-)
-var patch = require('float-compute-patch');
-
-// 一些路由 ...
-app.listen(3000);
-
-// 在业务文件中
-// 例如 account.js
-var a = 2.2;
-var b = 2.1;
-// 正常写法
-var c = a + b;
-// 补丁后 加法
-var c = a.add(b);
-// 减法
-var c = a.sub(b);
-// 乘法
-var c = a.mul(b);
-// 除法
-var c = a.div(b);
-
-// 为了好看这样写 (-.-)
-var c = (a).add(b);
-// 可以链着写
-var c = (a).add(b).sub(b).mul(a).div(b);
+// 像下面这样写
+var result = 2.2.add(2.1); // 等于4.3 或者这样写也是一样的(2.2).add(2.1)
+// 支持链式写法
+var result = 2.2.add(2.1).sub(0.5).div(1).mul(2);
+/*
+***
+  版本 2.0.0
+***
+*/
+// 如果你只想像版本1.x中那样使用
+require('float-compute-patch').patch(); // 用法和版本1.x一样
+// 如果你想像使用普通的函数一样使用
+var cal = require('float-compute-patch').cal;
+// 像下面这样写
+var result = cal(2.2).add(2.1).sub(8);
 ```
+
+# 接口
+- 版本1.x的模式, 调用应该以一个数字类型开始
+  - add(number), 加法
+  - sub(number), 减法
+  - mul(number), 乘法
+  - div(number), 除法
+
+- 普通函数的模式, 你应该以cal函数开始并传入一个初始值
+  - add(number), 加法
+  - sub(number), 减法
+  - mul(number), 乘法
+  - div(number), 除法
 
 # 测试
 > npm run test

@@ -1,5 +1,5 @@
 var assert = require('assert');
-var cal = require('../src/calculator').cal;
+var cal = require('../index').cal;
 
 var value_add = cal(2.2).add(2.1);
 var value_sub = cal(2.2).sub(1.9);
