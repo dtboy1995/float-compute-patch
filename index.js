@@ -1,1 +1,2 @@
-module.exports = require('./src/calculator')(Number);
+exports.cal = require('./src/calculator').cal;
+exports.patch = require('./src/calculator').patch;
