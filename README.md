@@ -1,6 +1,6 @@
 # ![float-compute-patch](static/logo.png)
 
-# float-compute-patch
+# float-compute-patch [![Build Status](https://travis-ci.org/dtboy1995/float-compute-patch.svg?branch=master)](https://travis-ci.org/dtboy1995/float-compute-patch)
 patch v8 float compute lose precision
 
 ## Translations
