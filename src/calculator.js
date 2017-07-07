@@ -1,107 +1,98 @@
-(function () {
-  function add(a, b) {
-    if (a.toString().indexOf('.') == -1 && b.toString().indexOf('.') == -1) {
-      return a + b;
-    }
-    var c, d, e;
-    try {
-      c = a.toString().split(".")[1].length;
-    } catch (f) {
-      c = 0;
-    }
-    try {
-      d = b.toString().split(".")[1].length;
-    } catch (f) {
-      d = 0;
-    }
-    return e = Math.pow(10, Math.max(c, d)), (mul(a, e) + mul(b, e)) / e;
-  }
+function bothInteger(value, valued) {
+  return value.toString().indexOf('.') == -1 && valued.toString().indexOf('.') == -1;
+}
 
-  function sub(a, b) {
-    if (a.toString().indexOf('.') == -1 && b.toString().indexOf('.') == -1) {
-      return a - b;
-    }
-    var c, d, e;
-    try {
-      c = a.toString().split(".")[1].length;
-    } catch (f) {
-      c = 0;
-    }
-    try {
-      d = b.toString().split(".")[1].length;
-    } catch (f) {
-      d = 0;
-    }
-    return e = Math.pow(10, Math.max(c, d)), (mul(a, e) - mul(b, e)) / e;
+function getFloatLen(value) {
+  var arrs = value.toString().split(".");
+  if (arrs.length === 1) {
+    return 0;
+  }else{
+    return arrs[1].length;
   }
+}
 
-  function mul(a, b) {
-    if (a.toString().indexOf('.')==-1 && b.toString().indexOf('.')==-1) {
-      return a * b;
-    }
-    var c = 0,
-      d = a.toString(),
-      e = b.toString();
-    try {
-      c += d.split(".")[1].length;
-    } catch (f) {}
-    try {
-      c += e.split(".")[1].length;
-    } catch (f) {}
-    return Number(d.replace(".", "")) * Number(e.replace(".", "")) / Math.pow(10, c);
-  }
+function floatToInt(value) {
+  return Number(value.toString().replace(".", ""));
+}
 
-  function div(a, b) {
-    if (a.toString().indexOf('.')==-1 && b.toString().indexOf('.')==-1) {
-      return a / b;
-    }
-    var c, d, e = 0,
-      f = 0;
-    try {
-      e = a.toString().split(".")[1].length;
-    } catch (g) {}
-    try {
-      f = b.toString().split(".")[1].length;
-    } catch (g) {}
-    return c = Number(a.toString().replace(".", "")), d = Number(b.toString().replace(".", "")), mul(c / d, Math.pow(10, f - e));
+function add(a, b) {
+  if (bothInteger(a, b)) {
+    return a + b;
   }
+  var c, d, e;
+  c = getFloatLen(a);
+  d = getFloatLen(b);
+  return e = Math.pow(10, Math.max(c, d)), (mul(a, e) + mul(b, e)) / e;
+}
 
-  var operators = {
-    add: add,
-    sub: sub,
-    mul: mul,
-    div: div
+function sub(a, b) {
+  if (bothInteger(a, b)) {
+    return a - b;
   }
+  var c, d, e;
+  c = getFloatLen(a);
+  d = getFloatLen(b);
+  return e = Math.pow(10, Math.max(c, d)), (mul(a, e) - mul(b, e)) / e;
+}
 
-  function calculator(value) {
-    this.value = value;
+function mul(a, b) {
+  if (bothInteger(a, b)) {
+    return a * b;
   }
-  // patch prototype of calculator function
+  var c = 0;
+  c += getFloatLen(a);
+  c += getFloatLen(b);
+  return floatToInt(a) * floatToInt(b) / Math.pow(10, c);
+}
+
+function div(a, b) {
+  if (bothInteger(a, b)) {
+    return a / b;
+  }
+  var c, d, e ,f;
+  e = getFloatLen(a);
+  f = getFloatLen(b);
+  return c = floatToInt(a), d = floatToInt(b), mul(c / d, Math.pow(10, f - e));
+}
+
+var operators = {
+  add: add,
+  sub: sub,
+  mul: mul,
+  div: div
+}
+
+function calculator(value) {
+  this.value = value;
+}
+
+function loop(Type, fn) {
   Object.keys(operators).forEach(function (value) {
-    calculator.prototype[value] = function (v) {
+    Type.prototype[value] = function (v) {
       checkType(v);
-      this.value = operators[value](this.value, v);
-      return this.value;
+      return fn.call(this, operators[value], v);
     }
   });
-  // patch prototype of Number
-  exports.patch = function () {
-    Object.keys(operators).forEach(function (value) {
-      Number.prototype[value] = function (v) {
-        checkType(v);
-        return operators[value](this, v);
-      }
-    });
+}
+
+loop(calculator, function (operator, v) {
+  this.value = operator(this.value, v);
+  return this.value;
+});
+
+function checkType(value) {
+  if (typeof value !== 'number') {
+    throw new Error('only accept a number value!');
   }
-  // type check
-  function checkType(value) {
-    if (typeof value !== 'number') {
-      throw new Error('calculator only accept a number value!');
-    }
-  }
-  // exports cal
-  exports.cal = function (value) {
-    checkType(value);
-    return new calculator(value);
-  }
-}).call(this);
+}
+
+exports.patch = function () {
+  loop(Number, function (operator, v) {
+    return operator(this, v);
+  })
+}
+
+exports.cal = function (value) {
+  checkType(value);
+  return new calculator(value);
+}
