@@ -3,7 +3,7 @@
 # float-compute-patch [![Build Status](https://travis-ci.org/dtboy1995/float-compute-patch.svg?branch=master)](https://travis-ci.org/dtboy1995/float-compute-patch)
 v8虚拟机浮点数失精度补丁
 
-## Translation
+# translations
 [英文](README.md)
 
 # 什么情况下使用
@@ -54,4 +54,4 @@ var result = cal(2.2).add(2.1).sub(8);
   - div(number), 除法
 
 # 测试
-> npm run test
+> npm test

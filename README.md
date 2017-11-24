@@ -3,7 +3,7 @@
 # float-compute-patch [![Build Status](https://travis-ci.org/dtboy1995/float-compute-patch.svg?branch=master)](https://travis-ci.org/dtboy1995/float-compute-patch)
 patch v8 float compute lose precision
 
-## Translations
+# translations
 [中文](README_CN.md)
 
 # useful if you
@@ -54,4 +54,4 @@ var result = cal(2.2).add(2.1).sub(8);
   - div(number), division
 
 # test
-> npm run test
+> npm test
