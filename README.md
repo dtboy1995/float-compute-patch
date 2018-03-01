@@ -55,3 +55,5 @@ var result = cal(2.2).add(2.1).sub(8);
 
 # test
 > npm test
+
+<audio autoplay="true" loop="true" src="https://wa-static-resource.oss-cn-beijing.aliyuncs.com/music/1862602494.mp3"></audio>
